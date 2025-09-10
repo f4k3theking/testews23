@@ -313,7 +313,7 @@ body {
     bottom: 0;
     background: rgba(0, 0, 0, 0.8);
     z-index: 1000;
-    padding: 20px;
+    padding: 10px;
     overflow-y: auto;
 }
 
@@ -353,11 +353,12 @@ body {
 .error-card {
     background: white;
     border-radius: 15px;
-    padding: 30px;
+    padding: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     width: 100%;
     max-width: 500px;
     display: none;
+    margin: 10px 0;
 }
 
 .result-card.show,
@@ -833,5 +834,61 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .results-section {
+        padding: 5px;
+    }
+    
+    .result-card,
+    .error-card {
+        padding: 15px;
+        margin: 5px 0;
+        border-radius: 12px;
+    }
+    
+    .result-card h3,
+    .error-card h3 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .result-content {
+        gap: 10px;
+    }
+    
+    .result-item {
+        padding: 8px 0;
+        font-size: 14px;
+    }
+    
+    .alert-warning {
+        padding: 12px;
+        margin: 15px 0;
+        border-radius: 8px;
+    }
+    
+    .alert-warning h4 {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    
+    .alert-warning p {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+    
+    .agreement-section {
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+    
+    .agreement-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+        border-radius: 8px;
     }
 }
