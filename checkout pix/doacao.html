@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doar - A Realidade em Moçambique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #22c55e;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #22c55e;
+        }
+
+        .back-btn {
+            background: #f3f4f6;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .donation-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .campaign-header {
+            padding: 30px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .campaign-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .campaign-subtitle {
+            color: #6b7280;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-section {
+            padding: 30px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #22c55e;
+            width: 54%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #22c55e;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .donation-section {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .amount-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .amount-btn {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .amount-btn:hover {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+
+        .amount-btn.selected {
+            border-color: #22c55e;
+            background: #22c55e;
+            color: white;
+        }
+
+        .custom-amount {
+            margin-top: 16px;
+        }
+
+        .custom-amount label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .amount-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+
+        .amount-input:focus {
+            outline: none;
+            border-color: #22c55e;
+        }
+
+        .donate-btn {
+            width: 100%;
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: all 0.2s;
+        }
+
+        .donate-btn:hover {
+            background: #16a34a;
+            transform: translateY(-1px);
+        }
+
+        .donate-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .security-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .security-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Modal PIX */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 24px 24px 0;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .modal-content {
+            padding: 24px;
+        }
+
+        .pix-qr {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9fafb;
+        }
+
+        .pix-code-section {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .pix-code-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .pix-code {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #111827;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            word-break: break-all;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            width: 100%;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #2563eb;
+        }
+
+        .modal-footer {
+            padding: 0 24px 24px;
+            text-align: center;
+        }
+
+        .close-btn {
+            background: #f3f4f6;
+            color: #374151;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #e5e7eb;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 20px auto;
+                padding: 0 16px;
+            }
+
+            .campaign-header,
+            .progress-section,
+            .donation-section {
+                padding: 24px;
+            }
+
+            .amount-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">V</div>
+                <span class="logo-text">vakinha</span>
+            </div>
+            <a href="index.html" class="back-btn">← Voltar</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="donation-card">
+            <div class="campaign-header">
+                <h1 class="campaign-title">A Realidade em Moçambique</h1>
+                <p class="campaign-subtitle">SAÚDE / TRATAMENTOS</p>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <span class="stat-value">R$ 51.145,39</span>
+                        <div class="stat-label">Arrecadado</div>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">821</span>
+                        <div class="stat-label">Apoiadores</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="donation-section">
+                <h2 class="section-title">Escolha o valor da sua doação</h2>
+                
+                <div class="amount-grid">
+                    <div class="amount-btn" data-amount="10">R$ 10,00</div>
+                    <div class="amount-btn" data-amount="25">R$ 25,00</div>
+                    <div class="amount-btn" data-amount="50">R$ 50,00</div>
+                    <div class="amount-btn" data-amount="100">R$ 100,00</div>
+                </div>
+
+                <div class="custom-amount">
+                    <label for="customAmount">Ou digite outro valor:</label>
+                    <input type="number" id="customAmount" class="amount-input" placeholder="R$ 0,00" min="1" step="0.01">
+                </div>
+
+                <button id="donateBtn" class="donate-btn" disabled>
+                    Continuar com PIX
+                </button>
+
+                <div class="security-info">
+                    <svg class="security-icon" viewBox="0 0 16 16">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zM3 7v4a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z"/>
+                    </svg>
+                    Pagamento 100% seguro via PIX
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal PIX -->
+    <div id="pixModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Pagamento via PIX</h3>
+                <p class="modal-subtitle">Escaneie o código QR ou copie o código PIX</p>
+            </div>
+            <div class="modal-content">
+                <div class="pix-qr">
+                    <div class="qr-code" id="qrCode">
+                        <span>QR Code será exibido aqui</span>
+                    </div>
+                    <p style="font-size: 14px; color: #6b7280;">Valor: <strong id="pixAmount">R$ 0,00</strong></p>
+                </div>
+                
+                <div class="pix-code-section">
+                    <div class="pix-code-label">Código PIX (Copia e Cola):</div>
+                    <div class="pix-code" id="pixCode">Código será gerado aqui...</div>
+                    <button class="copy-btn" onclick="copyPixCode()">📋 Copiar código PIX</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="close-btn" onclick="closePixModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedAmount = 0;
+
+        // Seleção de valores predefinidos
+        document.querySelectorAll('.amount-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove seleção anterior
+                document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+                
+                // Adiciona seleção atual
+                btn.classList.add('selected');
+                
+                // Define valor
+                selectedAmount = parseFloat(btn.dataset.amount);
+                document.getElementById('customAmount').value = '';
+                
+                // Habilita botão
+                updateDonateButton();
+            });
+        });
+
+        // Input personalizado
+        document.getElementById('customAmount').addEventListener('input', (e) => {
+            const value = parseFloat(e.target.value) || 0;
+            
+            // Remove seleções predefinidas
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+            
+            selectedAmount = value;
+            updateDonateButton();
+        });
+
+        function updateDonateButton() {
+            const btn = document.getElementById('donateBtn');
+            if (selectedAmount > 0) {
+                btn.disabled = false;
+                btn.textContent = `Doar R$ ${selectedAmount.toFixed(2).replace('.', ',')}`;
+            } else {
+                btn.disabled = true;
+                btn.textContent = 'Continuar com PIX';
+            }
+        }
+
+        // Botão de doação
+        document.getElementById('donateBtn').addEventListener('click', () => {
+            if (selectedAmount > 0) {
+                generatePix(selectedAmount);
+            }
+        });
+
+        async function generatePix(amount) {
+            const btn = document.getElementById('donateBtn');
+            const originalText = btn.textContent;
+            
+            btn.disabled = true;
+            btn.textContent = 'Gerando PIX...';
+            
+            try {
+                const response = await fetch('/.netlify/functions/pix', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ amount: amount })
+                });
+
+                const data = await response.json();
+                console.log('Resposta da API PIX:', data);
+                
+                if (data.success) {
+                    showPixModal(data);
+                } else {
+                    console.error('Erro da API PIX:', data);
+                    alert('Erro ao gerar PIX: ' + (data.error || 'Erro desconhecido'));
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao conectar com o servidor. Tente novamente.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        }
+
+        function showPixModal(pixData) {
+            console.log('Dados PIX recebidos:', pixData);
+            
+            document.getElementById('pixAmount').textContent = `R$ ${pixData.amount.toFixed(2).replace('.', ',')}`;
+            
+            // QR Code (verificar ambos os campos possíveis)
+            const qrContainer = document.getElementById('qrCode');
+            const qrCodeUrl = pixData.pix_qr_code || pixData.qr_code || pixData.image;
+            
+            console.log('URL do QR Code:', qrCodeUrl);
+            
+            if (qrCodeUrl) {
+                const img = document.createElement('img');
+                img.style.cssText = 'width: 100%; height: 100%; object-fit: contain;';
+                img.alt = 'QR Code PIX';
+                
+                img.onload = function() {
+                    console.log('✅ QR Code carregado com sucesso!');
+                };
+                
+                img.onerror = function() {
+                    console.log('❌ Erro ao carregar QR Code da API, gerando fallback...');
+                    // Se falhar, tentar gerar QR Code usando serviço alternativo
+                    const pixCodeForFallback = pixData.pix_code || pixData.code || '';
+                    const fallbackUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(pixCodeForFallback)}`;
+                    this.src = fallbackUrl;
+                    
+                    this.onerror = function() {
+                        console.log('❌ Fallback também falhou');
+                        qrContainer.innerHTML = '<span style="color: #6b7280;">QR Code temporariamente indisponível</span>';
+                    };
+                };
+                
+                img.src = qrCodeUrl;
+                qrContainer.innerHTML = '';
+                qrContainer.appendChild(img);
+            } else {
+                console.log('QR Code não encontrado nos dados, gerando com serviço externo...');
+                // Se não vier QR Code da API, gerar um usando serviço público
+                const pixCode = pixData.pix_code || pixData.code || '';
+                if (pixCode) {
+                    const externalQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(pixCode)}`;
+                    qrContainer.innerHTML = `<img src="${externalQrUrl}" alt="QR Code PIX" style="width: 100%; height: 100%; object-fit: contain;" onload="console.log('QR Code externo carregado!')" onerror="this.parentNode.innerHTML = '<span style=color:#6b7280;>QR Code indisponível</span>'">`;
+                } else {
+                    qrContainer.innerHTML = '<span style="color: #6b7280;">QR Code não disponível</span>';
+                }
+            }
+            
+            // Código PIX
+            const pixCode = pixData.pix_code || pixData.code || 'Código não disponível';
+            console.log('Código PIX:', pixCode);
+            document.getElementById('pixCode').textContent = pixCode;
+            
+            // Mostrar modal
+            document.getElementById('pixModal').style.display = 'block';
+        }
+
+        function closePixModal() {
+            document.getElementById('pixModal').style.display = 'none';
+        }
+
+        function copyPixCode() {
+            const pixCode = document.getElementById('pixCode').textContent;
+            navigator.clipboard.writeText(pixCode).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copiado!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            }).catch(() => {
+                alert('Erro ao copiar. Tente selecionar e copiar manualmente.');
+            });
+        }
+
+        // Fechar modal ao clicar fora
+        document.getElementById('pixModal').addEventListener('click', (e) => {
+            if (e.target.id === 'pixModal') {
+                closePixModal();
+            }
+        });
+    </script>
+</body>
+</html>
