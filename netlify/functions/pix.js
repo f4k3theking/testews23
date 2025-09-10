@@ -72,7 +72,7 @@ exports.handler = async (event, context) => {
         campaign: 'debt_settlement',
         customer_cpf: customerCpf
       },
-      callbackUrl: 'https://velvety-kelpie-28e5cd.netlify.app/.netlify/functions/webhook'
+      callbackUrl: 'https://capable-gelato-5f3619.netlify.app/.netlify/functions/webhook'
     };
 
     console.log('Payload:', JSON.stringify(payload, null, 2));
