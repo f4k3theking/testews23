@@ -664,7 +664,7 @@
             btn.textContent = 'Gerando PIX...';
             
             try {
-                const response = await fetch('checkout pix/api_pix.php', {
+                const response = await fetch('/.netlify/functions/pix', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
