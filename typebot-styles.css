@@ -459,46 +459,49 @@ body {
 .audio-player-custom {
     width: 100%;
     max-width: 280px;
-    height: 40px;
-    border-radius: 20px;
-    background: #2c2c2e;
+    height: 36px;
+    border-radius: 18px;
+    background: #25D366; /* WhatsApp green background */
     border: none;
     outline: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    padding: 0 12px;
+    padding: 0 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    position: relative;
 }
 
 .audio-player-custom:hover {
-    background: #3a3a3c;
+    background: #20c05a;
+    transform: scale(1.02);
 }
 
 .audio-play-btn {
-    width: 20px;
-    height: 20px;
-    background: #007AFF;
+    width: 24px;
+    height: 24px;
+    background: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 8px;
     flex-shrink: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .audio-play-btn i {
-    color: white;
-    font-size: 10px;
+    color: #25D366;
+    font-size: 12px;
     margin-left: 1px;
 }
 
 .audio-timeline {
     flex: 1;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 1px;
     margin: 0 8px;
     position: relative;
     cursor: pointer;
@@ -506,8 +509,8 @@ body {
 
 .audio-progress {
     height: 100%;
-    background: #007AFF;
-    border-radius: 2px;
+    background: white;
+    border-radius: 1px;
     width: 0%;
     transition: width 0.1s ease;
 }
@@ -515,9 +518,10 @@ body {
 .audio-time {
     color: white;
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 600;
     min-width: 35px;
     text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Audio Fallback */
@@ -566,20 +570,20 @@ body {
 /* Estilo específico para mobile */
 @media (max-width: 768px) {
     .audio-player-custom {
-        height: 36px;
-        border-radius: 18px;
-        max-width: 260px;
-        padding: 0 10px;
+        height: 32px;
+        border-radius: 16px;
+        max-width: 240px;
+        padding: 0 8px;
     }
     
     .audio-play-btn {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         margin-right: 6px;
     }
     
     .audio-play-btn i {
-        font-size: 9px;
+        font-size: 10px;
     }
     
     .audio-timeline {
@@ -589,13 +593,13 @@ body {
     
     .audio-time {
         font-size: 10px;
-        min-width: 30px;
+        min-width: 28px;
     }
     
     .audio-placeholder {
-        border-radius: 18px;
-        min-height: 36px;
-        max-width: 260px;
+        border-radius: 16px;
+        min-height: 32px;
+        max-width: 240px;
     }
 }
 
