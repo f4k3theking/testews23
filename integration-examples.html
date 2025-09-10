@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplos de Integração - Consulta CPF</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .example {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .example h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 10px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔌 Exemplos de Integração - Sistema de Consulta CPF</h1>
+        
+        <p>Este documento mostra diferentes formas de integrar o sistema de consulta CPF em sua landing page ou aplicação.</p>
+
+        <!-- Exemplo 1: Integração Simples -->
+        <div class="example">
+            <h3>1. Integração Simples - Incluir na Página</h3>
+            <p>A forma mais simples de usar o sistema é incluir os arquivos diretamente:</p>
+            
+            <pre><code>&lt;!-- Incluir CSS --&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;
+
+&lt;!-- Incluir JavaScript --&gt;
+&lt;script src="js/cpfValidator.js"&gt;&lt;/script&gt;
+&lt;script src="js/cpfAPI.js"&gt;&lt;/script&gt;
+&lt;script src="js/app.js"&gt;&lt;/script&gt;
+
+&lt;!-- HTML do formulário --&gt;
+&lt;div class="search-section"&gt;
+    &lt;div class="search-card"&gt;
+        &lt;h2&gt;Consultar CPF&lt;/h2&gt;
+        &lt;form id="cpfForm" class="cpf-form"&gt;
+            &lt;div class="input-group"&gt;
+                &lt;label for="cpfInput"&gt;Digite o CPF:&lt;/label&gt;
+                &lt;input type="text" id="cpfInput" placeholder="000.000.000-00" maxlength="14" required&gt;
+                &lt;span class="input-error" id="cpfError"&gt;&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;button type="submit" id="searchBtn" class="search-btn"&gt;
+                Consultar
+            &lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <!-- Exemplo 2: Integração Programática -->
+        <div class="example">
+            <h3>2. Integração Programática</h3>
+            <p>Para ter mais controle, você pode usar as classes diretamente:</p>
+            
+            <pre><code>// Criar instância da API
+const api = new CPFAPI();
+
+// Função para consultar CPF
+async function consultarCPF(cpf) {
+    try {
+        // Validar CPF primeiro
+        if (!CPFValidator.isValid(cpf)) {
+            throw new Error('CPF inválido');
+        }
+        
+        // Fazer consulta
+        const resultado = await api.consultarCPF(cpf);
+        
+        if (resultado.success) {
+            console.log('Dados encontrados:', resultado.data);
+            // Processar dados aqui
+            exibirDados(resultado.data);
+        } else {
+            console.error('Erro:', resultado.error);
+            // Tratar erro aqui
+            exibirErro(resultado.error);
+        }
+    } catch (error) {
+        console.error('Erro inesperado:', error);
+    }
+}
+
+// Função para exibir dados
+function exibirDados(dados) {
+    document.getElementById('resultado').innerHTML = `
+        &lt;h3&gt;Dados encontrados:&lt;/h3&gt;
+        &lt;p&gt;&lt;strong&gt;Nome:&lt;/strong&gt; ${dados.nome}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;CPF:&lt;/strong&gt; ${CPFValidator.format(dados.cpf)}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Situação:&lt;/strong&gt; ${dados.situacao}&lt;/p&gt;
+    `;
+}</code></pre>
+        </div>
+
+        <!-- Exemplo 3: Validação Apenas -->
+        <div class="example">
+            <h3>3. Usar Apenas a Validação de CPF</h3>
+            <p>Se você só precisa validar CPFs sem consultar dados:</p>
+            
+            <pre><code>// Validar CPF
+const cpfValido = CPFValidator.isValid('123.456.789-01');
+console.log('CPF válido:', cpfValido); // true ou false
+
+// Formatar CPF
+const cpfFormatado = CPFValidator.format('12345678901');
+console.log('CPF formatado:', cpfFormatado); // 123.456.789-01
+
+// Limpar formatação
+const cpfLimpo = CPFValidator.clean('123.456.789-01');
+console.log('CPF limpo:', cpfLimpo); // 12345678901
+
+// Aplicar máscara em um input
+const input = document.getElementById('cpfInput');
+CPFValidator.applyMask(input);</code></pre>
+        </div>
+
+        <!-- Exemplo 4: Integração com React -->
+        <div class="example">
+            <h3>4. Integração com React (Exemplo)</h3>
+            <p>Para usar com React, você pode criar um hook personalizado:</p>
+            
+            <pre><code>import { useState, useCallback } from 'react';
+
+// Hook personalizado para consulta CPF
+function useCPFConsulta() {
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+
+    const consultarCPF = useCallback(async (cpf) => {
+        setLoading(true);
+        setError(null);
+        setData(null);
+
+        try {
+            // Assumindo que você importou as classes
+            const api = new CPFAPI();
+            const resultado = await api.consultarCPF(cpf);
+
+            if (resultado.success) {
+                setData(resultado.data);
+            } else {
+                setError(resultado.error);
+            }
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    return { consultarCPF, loading, data, error };
+}
+
+// Componente React
+function CPFConsulta() {
+    const [cpf, setCpf] = useState('');
+    const { consultarCPF, loading, data, error } = useCPFConsulta();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (CPFValidator.isValid(cpf)) {
+            consultarCPF(cpf);
+        }
+    };
+
+    return (
+        &lt;form onSubmit={handleSubmit}&gt;
+            &lt;input 
+                type="text" 
+                value={cpf}
+                onChange={(e) => setCpf(e.target.value)}
+                placeholder="000.000.000-00"
+            /&gt;
+            &lt;button type="submit" disabled={loading}&gt;
+                {loading ? 'Consultando...' : 'Consultar'}
+            &lt;/button&gt;
+            
+            {error && &lt;div className="error"&gt;{error}&lt;/div&gt;}
+            {data && (
+                &lt;div className="resultado"&gt;
+                    &lt;h3&gt;Dados encontrados:&lt;/h3&gt;
+                    &lt;p&gt;Nome: {data.nome}&lt;/p&gt;
+                    &lt;p&gt;Situação: {data.situacao}&lt;/p&gt;
+                &lt;/div&gt;
+            )}
+        &lt;/form&gt;
+    );
+}</code></pre>
+        </div>
+
+        <!-- Exemplo 5: Integração com jQuery -->
+        <div class="example">
+            <h3>5. Integração com jQuery</h3>
+            <p>Para projetos que usam jQuery:</p>
+            
+            <pre><code>$(document).ready(function() {
+    // Aplicar máscara no input
+    const input = $('#cpfInput')[0];
+    CPFValidator.applyMask(input);
+    
+    // Handler do formulário
+    $('#cpfForm').on('submit', async function(e) {
+        e.preventDefault();
+        
+        const cpf = $('#cpfInput').val();
+        const $button = $('#submitBtn');
+        const $resultado = $('#resultado');
+        
+        // Validar CPF
+        if (!CPFValidator.isValid(cpf)) {
+            alert('CPF inválido');
+            return;
+        }
+        
+        // Mostrar loading
+        $button.prop('disabled', true).text('Consultando...');
+        $resultado.empty();
+        
+        try {
+            // Consultar
+            const api = new CPFAPI();
+            const resultado = await api.consultarCPF(cpf);
+            
+            if (resultado.success) {
+                // Exibir resultado
+                $resultado.html(`
+                    &lt;div class="alert alert-success"&gt;
+                        &lt;h4&gt;Dados encontrados:&lt;/h4&gt;
+                        &lt;p&gt;&lt;strong&gt;Nome:&lt;/strong&gt; ${resultado.data.nome}&lt;/p&gt;
+                        &lt;p&gt;&lt;strong&gt;Situação:&lt;/strong&gt; ${resultado.data.situacao}&lt;/p&gt;
+                    &lt;/div&gt;
+                `);
+            } else {
+                // Exibir erro
+                $resultado.html(`
+                    &lt;div class="alert alert-danger"&gt;
+                        &lt;strong&gt;Erro:&lt;/strong&gt; ${resultado.error}
+                    &lt;/div&gt;
+                `);
+            }
+        } catch (error) {
+            $resultado.html(`
+                &lt;div class="alert alert-danger"&gt;
+                    &lt;strong&gt;Erro:&lt;/strong&gt; ${error.message}
+                &lt;/div&gt;
+            `);
+        } finally {
+            // Restaurar botão
+            $button.prop('disabled', false).text('Consultar');
+        }
+    });
+});</code></pre>
+        </div>
+
+        <!-- Exemplo 6: Configuração Personalizada -->
+        <div class="example">
+            <h3>6. Configuração Personalizada</h3>
+            <p>Você pode personalizar o comportamento usando o arquivo de configuração:</p>
+            
+            <pre><code>// Modificar configurações antes de usar
+CPF_CONFIG.API.TIMEOUT = 15000; // 15 segundos
+CPF_CONFIG.MESSAGES.ERRORS.CPF_INVALID = 'Por favor, digite um CPF válido';
+
+// Definir callbacks personalizados
+CPF_CONFIG.INTEGRATION.ON_SUCCESS = function(data) {
+    // Seu código personalizado para sucesso
+    console.log('Consulta bem-sucedida:', data);
+    
+    // Enviar dados para analytics
+    gtag('event', 'cpf_consulta_sucesso', {
+        'event_category': 'engagement'
+    });
+};
+
+CPF_CONFIG.INTEGRATION.ON_ERROR = function(error) {
+    // Seu código personalizado para erro
+    console.error('Erro na consulta:', error);
+    
+    // Enviar erro para analytics
+    gtag('event', 'cpf_consulta_erro', {
+        'event_category': 'error',
+        'error_message': error
+    });
+};</code></pre>
+        </div>
+
+        <div class="highlight">
+            <h4>💡 Dicas Importantes:</h4>
+            <ul>
+                <li><strong>Segurança:</strong> Nunca exponha a chave da API no frontend em produção</li>
+                <li><strong>Performance:</strong> Use debounce para validações em tempo real</li>
+                <li><strong>UX:</strong> Sempre forneça feedback visual durante as consultas</li>
+                <li><strong>Erro:</strong> Implemente tratamento robusto de erros</li>
+                <li><strong>Mobile:</strong> Teste em dispositivos móveis</li>
+            </ul>
+        </div>
+
+        <div class="highlight">
+            <h4>🔧 Arquivos Necessários:</h4>
+            <ul>
+                <li><code>js/cpfValidator.js</code> - Validação e formatação de CPF</li>
+                <li><code>js/cpfAPI.js</code> - Integração com a API</li>
+                <li><code>js/app.js</code> - Aplicação principal (opcional)</li>
+                <li><code>styles.css</code> - Estilos (opcional)</li>
+                <li><code>config.js</code> - Configurações (opcional)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

