@@ -64,7 +64,7 @@ class TypebotChat {
 
     setAttendantName() {
         // Define nomes de atendentes baseados no nome do usuário
-        const attendantNames = ['Renata', 'Camila', 'Ana', 'Mariana', 'Juliana'];
+        const attendantNames = ['Renata'];
         const nameIndex = this.userData.name.length % attendantNames.length;
         const selectedName = attendantNames[nameIndex];
         this.attendantName.textContent = selectedName;
