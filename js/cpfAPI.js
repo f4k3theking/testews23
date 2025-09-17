@@ -7,8 +7,7 @@ class CPFAPI {
     constructor() {
         // Sistema de múltiplas chaves API para aumentar limite diário
         this.apiKeys = [
-            'b598a1a65ed18db507f77bfddc79420ece5d9291b2ecd0851a035b091d1a30b4', // Chave 1 - 500 req/dia
-            'd08bd1ec93272f993aef7050218aa6ea9e2375c0dbfad127c299f1820fcd6681'  // Chave 2 - 500 req/dia
+            'e3f4ee4c37600f854eeb0ec60421f16b547eb9c28982f8e8ffbbc3f93dc2b844'  // Chave atualizada
         ];
         this.currentKeyIndex = 0; // Índice da chave atual
         this.baseURL = 'https://apicpf.com/api/consulta';
